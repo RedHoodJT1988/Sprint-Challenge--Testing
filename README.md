@@ -31,10 +31,49 @@
 
 ## DOCUMENTATION GOES HERE
 
-```
-THIS NEEDS TO BE FILLED IN WITH YOUR BEAUTIFUL DOCUMENTATION. IF YOU DID THIS RIGHT DURING THE PROJECT YOU SHOULD BE ABLE TO PORT OVER YOUR WORK, AND CHANGE IT TO FIT THE NEW API.
+# DC Character API
+
+This awesome API helps you keep track of your favorite DC Comics Characters!
+
+## How to use
+
+### Retrieving the Characters list
+
+In order to get your favorite characters and their power levels, make a get request to:
+
+`/api/character/get`
+
+### Adding characters
+
+You can add characters through the create endpoint! Make sure you have the name and alias included (first appearance is optional) like so:
+
+```js
+{
+  name: 'Kyle Rayner',
+  alias: 'White Lantern',
+  firstAppearance: 'January 1994'
+}
 ```
 
+and then send it to:
+
+`/api/character/create`
+
+### Updating your characters
+
+If you made a mistake while entering in your favorite hero's data then you can fix it using the update endpoint:
+
+`/api/character/update`
+
+NOTE: It's important to provide the Id along with the corrected name.
+
+### Removing characters
+
+Should the character not be as awesome as you remember, or you just don't like that character, you can banish that character to one of the multiverses by using the following:
+
+`/api/game/destroy/<id goes here>`
+
+````
 ## TESTS
 
 * The provided API has already been manually tested for you.
@@ -52,7 +91,7 @@ THIS NEEDS TO BE FILLED IN WITH YOUR BEAUTIFUL DOCUMENTATION. IF YOU DID THIS RI
     genre: 'Sports',
     releaseDate: 'June 1987'
   }
-  ```
+````
 
 ### Write tests for the "GET" method
 

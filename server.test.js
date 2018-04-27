@@ -37,37 +37,37 @@ describe('Games', () => {
     const newGame = new Game({
       title: 'Super Mario Bros.',
       genre: 'Action',
-      releaseDate: '1985' 
+      releaseDate: '1985',
     });
     newGame
-    .save()
-    .then(savedGame => {
-      gameId = savedGame._id.toString();
-    })
-    .catch(error => console.log(error));
+      .save()
+      .then(savedGame => {
+        gameId = savedGame._id.toString();
+      })
+      .catch(error => console.log(error));
     done();
   });
   afterEach(done => {
     // simply remove the collections from your DB.
     Game.remove({})
-    .then(done())
-    .catch(err => {
-      console.log(err);
-      done();
-    });
+      .then(done())
+      .catch(err => {
+        console.log(err);
+        done();
+      });
   });
 
   // test the POST here
   describe('[POST] /api/game/create', () => {
     it('should create a new game in the database', done => {
       chai
-      .request(server)
-      .post('/api/game/create')
-      .send({ title: 'Dragon Quest', genre: 'RPG', releaseDate: '1988' })
-      .then(response => {
-        expect(response.status).to.equal(200);
-        done();
-      });
+        .request(server)
+        .post('/api/game/create')
+        .send({ title: 'Dragon Quest', genre: 'RPG', releaseDate: '1988' })
+        .then(response => {
+          expect(response.status).to.equal(200);
+          done();
+        });
     });
   });
 
@@ -75,13 +75,13 @@ describe('Games', () => {
   describe('[GET] /api/game/get', () => {
     it('should get a list of games in the database', done => {
       chai
-      .request(server)
-      .get('/api/game/get')
-      .then(response => {
-        const {_id, title, genre, releaseDate } = response.body[0];
-        expect(response.status).to.equal(200);
-        done();
-      });
+        .request(server)
+        .get('/api/game/get')
+        .then(response => {
+          const { _id, title, genre, releaseDate } = response.body[0];
+          expect(response.status).to.equal(200);
+          done();
+        });
     });
   });
 
@@ -89,32 +89,31 @@ describe('Games', () => {
   describe('[DELETE] /api/game/destroy/:id', () => {
     it('should be able to delete a game from the database', done => {
       chai
-      .request(server)
-      .delete(`/api/game/destroy${gameId}`)
-      .end((error, response) => {
-        expect(response.body).to.be.an('object');
-        done();
-      });
-    });
-  });
-});
-  // --- Stretch Problem ---
-  // test the PUT here
-  describe('[PUT] /api/game/update', () => {
-    it('should be able to update a game in the database', done => {
-      const updateGame = { id: gameId, title: 'Changed' };
-
-      chai
         .request(server)
-        .put('/api/game/update')
-        .send()
+        .delete(`/api/game/destroy${gameId}`)
         .end((error, response) => {
-          if (error) {
-            console.log(response);
-          }
           expect(response.body).to.be.an('object');
           done();
         });
     });
+  });
+});
+// --- Stretch Problem ---
+// test the PUT here
+describe('[PUT] /api/game/update', () => {
+  it('should be able to update a game in the database', done => {
+    const updateGame = { id: gameId, title: 'Changed' };
+
+    chai
+      .request(server)
+      .put('/api/game/update')
+      .send()
+      .end((error, response) => {
+        if (error) {
+          console.log(response);
+        }
+        expect(response.body).to.be.an('object');
+        done();
+      });
   });
 });

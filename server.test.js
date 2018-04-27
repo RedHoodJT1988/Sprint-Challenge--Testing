@@ -34,22 +34,23 @@ describe('Games', () => {
     // each time this hook runs, you should save a document to your db
     // by saving the document you'll be able to use it in each of your `it` blocks
 
-    const newCharacter = new Character({
-      name: 'Kyle Rayner',
-      alias: 'White Lantern',
-      firstAppearance: '1994',
+    const newgame = new Game({
+      title: 'Dragon Quest',
+      genre: 'RPG',
+      releaseDate: '1988',
     });
-    newCharacter
+    newGame
       .save()
-      .then(savedCharacter => {
-        characterId = savedCharacter._id.toString();
+      .then(savedGame => {
+        gameId = savedGame._id.toString();
       })
       .catch(error => console.log(error));
     done();
   });
   afterEach(done => {
     // simply remove the collections from your DB.
-    Character.remove({})
+    game
+      .remove({})
       .then(done())
       .catch(err => {
         console.log(err);
@@ -58,15 +59,15 @@ describe('Games', () => {
   });
 
   // test the POST here
-  describe('[POST] /api/character/create', () => {
-    it('should create a new character in the database', done => {
+  describe('[POST] /api/game/create', () => {
+    it('should create a new game in the database', done => {
       chai
         .request(server)
-        .post('/api/character/create')
+        .post('/api/game/create')
         .send({
-          character: 'Bruce Wayne',
-          alias: 'Batman',
-          firstAppearance: '1939',
+          title: 'Super Mario Bros',
+          genre: 'Aciton',
+          releaseDate: '1985',
         })
         .then(response => {
           expect(response.status).to.equal(200);
@@ -76,11 +77,11 @@ describe('Games', () => {
   });
 
   // test the GET here
-  describe('[GET] /api/character/get', () => {
-    it('should get a list of characters in the database', done => {
+  describe('[GET] /api/game/get', () => {
+    it('should get a list of games in the database', done => {
       chai
         .request(server)
-        .get('/api/character/get')
+        .get('/api/game/get')
         .then(response => {
           const { _id, name, alias, firstAppearance } = response.body[0];
           expect(response.status).to.equal(200);
@@ -90,11 +91,11 @@ describe('Games', () => {
   });
 
   // Test the DELETE here
-  describe('[DELETE] /api/character/destroy/:id', () => {
-    it('should be able to delete a character from the database', done => {
+  describe('[DELETE] /api/game/destroy/:id', () => {
+    it('should be able to delete a game from the database', done => {
       chai
         .request(server)
-        .delete(`/api/character/destroy/${characterId}`)
+        .delete(`/api/game/destroy/${gameId}`)
         .end((error, response) => {
           expect(response.body).to.be.equal('object');
           done();
@@ -104,13 +105,13 @@ describe('Games', () => {
 
   // --- Stretch Problem ---
   // test the PUT here
-  describe('[PUT] /api/character/update', () => {
-    it('should be able to update a character in the database', done => {
-      const updateCharacter = { id: characterId, title: 'Changed' };
+  describe('[PUT] /api/game/update', () => {
+    it('should be able to update a game in the database', done => {
+      const updateGame = { id: gameId, title: 'Changed' };
 
       chai
         .request(server)
-        .put('/api/character/update')
+        .put('/api/game/update')
         .send()
         .end((error, response) => {
           if (error) {

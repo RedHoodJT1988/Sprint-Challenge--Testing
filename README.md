@@ -31,27 +31,27 @@
 
 ## DOCUMENTATION GOES HERE
 
-# DC Character API
+# NES Game API
 
 This awesome API helps you keep track of your favorite DC Comics Characters!
 
 ## How to use
 
-### Retrieving the Characters list
+### Retrieving the games list
 
-In order to get your favorite characters and their power levels, make a get request to:
+In order to get your favorite games, make a get request to:
 
-`/api/character/get`
+`/api/game/get`
 
-### Adding characters
+### Adding games
 
-You can add characters through the create endpoint! Make sure you have the name and alias included (first appearance is optional) like so:
+You can add game through the create endpoint! Make sure you have the name and genre included like so:
 
 ```js
 {
-  name: 'Kyle Rayner',
-  alias: 'White Lantern',
-  firstAppearance: 'January 1994'
+  title: 'Super Mario Bros',
+  genre: 'Action',
+  releaseDate: '1985'
 }
 ```
 
@@ -59,17 +59,17 @@ and then send it to:
 
 `/api/character/create`
 
-### Updating your characters
+### Updating your games
 
-If you made a mistake while entering in your favorite hero's data then you can fix it using the update endpoint:
+If you made a mistake while entering in your favorite game's data then you can fix it using the update endpoint:
 
-`/api/character/update`
+`/api/game/update`
 
 NOTE: It's important to provide the Id along with the corrected name.
 
-### Removing characters
+### Removing games
 
-Should the character not be as awesome as you remember, or you just don't like that character, you can banish that character to one of the multiverses by using the following:
+Should the game not be as awesome as you remember, or you just don't like that game, you can banish that game to one of the multiverses by using the following:
 
 `/api/game/destroy/<id goes here>`
 

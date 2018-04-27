@@ -822,7 +822,7 @@ Lockfile:
 
 Trace: 
   Error: Command failed.
-  Exit code: 2
+  Exit code: 1
   Command: sh
   Arguments: -c mocha *.test.js --exit
   Directory: /Users/jonathanreeves/lamdbaschools/Sprint-Challenge--Testing

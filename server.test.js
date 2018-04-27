@@ -34,45 +34,40 @@ describe('Games', () => {
     // each time this hook runs, you should save a document to your db
     // by saving the document you'll be able to use it in each of your `it` blocks
 
-    const newgame = new Game({
-      title: 'Dragon Quest',
-      genre: 'RPG',
-      releaseDate: '1988',
+    const newGame = new Game({
+      title: 'Super Mario Bros.',
+      genre: 'Action',
+      releaseDate: '1985' 
     });
     newGame
-      .save()
-      .then(savedGame => {
-        gameId = savedGame._id.toString();
-      })
-      .catch(error => console.log(error));
+    .save()
+    .then(savedGame => {
+      gameId = savedGame._id.toString();
+    })
+    .catch(error => console.log(error));
     done();
   });
   afterEach(done => {
     // simply remove the collections from your DB.
-    game
-      .remove({})
-      .then(done())
-      .catch(err => {
-        console.log(err);
-        done();
-      });
+    Game.remove({})
+    .then(done())
+    .catch(err => {
+      console.log(err);
+      done();
+    });
   });
 
   // test the POST here
   describe('[POST] /api/game/create', () => {
     it('should create a new game in the database', done => {
       chai
-        .request(server)
-        .post('/api/game/create')
-        .send({
-          title: 'Super Mario Bros',
-          genre: 'Aciton',
-          releaseDate: '1985',
-        })
-        .then(response => {
-          expect(response.status).to.equal(200);
-          done();
-        });
+      .request(server)
+      .post('/api/game/create')
+      .send({ title: 'Dragon Quest', genre: 'RPG', releaseDate: '1988' })
+      .then(response => {
+        expect(response.status).to.equal(200);
+        done();
+      });
     });
   });
 
@@ -80,13 +75,13 @@ describe('Games', () => {
   describe('[GET] /api/game/get', () => {
     it('should get a list of games in the database', done => {
       chai
-        .request(server)
-        .get('/api/game/get')
-        .then(response => {
-          const { _id, name, alias, firstAppearance } = response.body[0];
-          expect(response.status).to.equal(200);
-          done();
-        });
+      .request(server)
+      .get('/api/game/get')
+      .then(response => {
+        const {_id, title, genre, releaseDate } = response.body[0];
+        expect(response.status).to.equal(200);
+        done();
+      });
     });
   });
 
@@ -94,15 +89,15 @@ describe('Games', () => {
   describe('[DELETE] /api/game/destroy/:id', () => {
     it('should be able to delete a game from the database', done => {
       chai
-        .request(server)
-        .delete(`/api/game/destroy/${gameId}`)
-        .end((error, response) => {
-          expect(response.body).to.be.equal('object');
-          done();
-        });
+      .request(server)
+      .delete(`/api/game/destroy${gameId}`)
+      .end((error, response) => {
+        expect(response.body).to.be.an('object');
+        done();
+      });
     });
   });
-
+});
   // --- Stretch Problem ---
   // test the PUT here
   describe('[PUT] /api/game/update', () => {

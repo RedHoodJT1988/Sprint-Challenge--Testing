@@ -102,7 +102,7 @@ describe('Games', () => {
 // test the PUT here
 describe('[PUT] /api/game/update', () => {
   it('should be able to update a game in the database', done => {
-    const updateGame = { id: gameId, title: 'Changed' };
+    const updateGame = `{ id: gameId, title: 'Changed' }`;
 
     chai
       .request(server)

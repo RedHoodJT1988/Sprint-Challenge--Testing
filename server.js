@@ -8,7 +8,7 @@ const server = express();
 server.use(bodyParser.json());
 server.use(morgan('combined'));
 
-server.post('/api/game/create', (req, res) => {
+server.post('/api/character/create', (req, res) => {
   const { title, releaseDate, genre } = req.body;
   const myGame = new Game({ title, releaseDate, genre });
   myGame
@@ -22,7 +22,7 @@ server.post('/api/game/create', (req, res) => {
     });
 });
 
-server.get('/api/game/get', (req, res) => {
+server.get('/api/character/get', (req, res) => {
   Game.find({}, (err, games) => {
     if (err) {
       res.status(500);
@@ -33,7 +33,7 @@ server.get('/api/game/get', (req, res) => {
   });
 });
 
-server.put('/api/game/update', (req, res) => {
+server.put('/api/character/update', (req, res) => {
   // All I care about is the game title and id.. don't worry about genre or date.
   const { title, id } = req.body;
   if (!title || !id) {
@@ -57,7 +57,7 @@ server.put('/api/game/update', (req, res) => {
   });
 });
 
-server.delete('/api/game/destroy/:id', (req, res) => {
+server.delete('/api/character/destroy/:id', (req, res) => {
   // to delete a game you can send up an id on the request body or the params
   let id = undefined;
   if (req.params.id) {
